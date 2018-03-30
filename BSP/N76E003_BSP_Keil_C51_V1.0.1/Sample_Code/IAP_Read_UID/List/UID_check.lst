@@ -1,0 +1,95 @@
+C51 COMPILER V9.52.0.0   UID_CHECK                                                         02/09/2017 17:50:10 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE UID_CHECK
+OBJECT MODULE PLACED IN .\Output\UID_check.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Code\UID_check.C BROWSE INCDIR(..\..\Common;..\..\Include) DEFINE(FOSC_1600
+                    -00) DEBUG OBJECTEXTEND PRINT(.\List\UID_check.lst) TABS(2) OBJECT(.\Output\UID_check.obj)
+
+line level    source
+
+   1          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   2          /*                                                                                                        
+             - */
+   3          /* Copyright(c) 2017 Nuvoton Technology Corp. All rights reserved.                                        
+             - */
+   4          /*                                                                                                        
+             - */
+   5          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   6          
+   7          //********************************************************************************************************
+             -***
+   8          //  Website: http://www.nuvoton.com
+   9          //  E-Mail : MicroC-8bit@nuvoton.com
+  10          //  Date   : Jan/21/2017
+  11          //********************************************************************************************************
+             -***
+  12          
+  13          //********************************************************************************************************
+             -***
+  14          //  File Function: N76E003 Read actual bandgap value by IAP command
+  15          //********************************************************************************************************
+             -***
+  16          #include "N76E003.h"
+  17          #include "Common.h"
+  18          #include "Delay.h"
+  19          #include "SFR_Macro.h"
+  20          #include "Function_define.h"
+  21          
+  22          UINT8 UID_BYTE(UINT8 Addr)
+  23          {
+  24   1          UINT8 DATATEMP;
+  25   1          set_IAPEN;
+  26   1          IAPAL = Addr;
+  27   1          IAPAH = 0x00;
+  28   1          IAPCN = READ_UID;
+  29   1          set_IAPGO;
+  30   1          DATATEMP = IAPFD;
+  31   1          clr_IAPEN;
+  32   1          return DATATEMP;
+  33   1      }
+  34          
+  35          void main(void)
+  36          {
+  37   1        UINT8 READ1,READ2;
+  38   1        Set_All_GPIO_Quasi_Mode;
+  39   1        InitialUART0_Timer3(115200);
+  40   1        
+  41   1      //---------toggle GPIO1---------  
+  42   1        clr_GPIO1;
+  43   1        Timer0_Delay1ms(100);
+  44   1        set_GPIO1;
+  45   1        Timer0_Delay1ms(100);
+C51 COMPILER V9.52.0.0   UID_CHECK                                                         02/09/2017 17:50:10 PAGE 2   
+
+  46   1        clr_GPIO1;
+  47   1        Timer0_Delay1ms(100);
+  48   1        set_GPIO1;
+  49   1        Timer0_Delay1ms(100);
+  50   1      //---------end toggle GPIO1---------
+  51   1        
+  52   1        READ1 = UID_BYTE(0x02);
+  53   1        READ2 = UID_BYTE(0x05);
+  54   1        
+  55   1        while(1)
+  56   1        {
+  57   2      //      printf ("\n Value = 0x%bx",READ1);
+  58   2        }
+  59   1      
+  60   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    158    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
