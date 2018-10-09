@@ -1,0 +1,6 @@
+
+
+一种可以支持dos , windows xp , win7 , win8的HexToBin转换工具 
+
+1.将hex格式文件转换为bin格式的烧录文件
+
