@@ -143,8 +143,8 @@ All function define inital setting file for Nuvoton N76E003
 //--------- Define all port as quasi mode ---------
 #define Set_All_GPIO_Quasi_Mode			P0M1=0;P0M2=0;P1M1=0;P1M2=0;P3M1=0;P3M2=0
 
-#define 		set_GPIO1		P12=1
-#define 		clr_GPIO1		P12=0
+#define 		set_GPIO1		P15=1
+#define 		clr_GPIO1		P15=0
 
 /****************************************************************************
    Enable INT port 0~3
